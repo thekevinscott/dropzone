@@ -1,9 +1,9 @@
 import * as React from 'react';
-import transformFiles from './transformFiles';
+import transformFiles, { IParsedFiles } from './transformFiles';
 
 interface IProps {
-  onDrop?: Function;
-  onParseFiles: Function;
+  onDrop?: () => void;
+  onParseFiles: (files: IParsedFiles) => void;
   style?: any;
   children?: any;
 }
@@ -102,12 +102,10 @@ class Dropzone extends React.Component<IProps, IState> {
           ...this.props.style,
         }}
         draggable={true}
-        // onDragStart={this.handleDrag(true)}
-        // onDragEnd={this.handleDrag(false)}
         onDrop={this.handleDrop}
         onDragOver={this.stop}
       >
-        {this.props.children || (<span>Drop Images To Begin Training</span>)}
+        {this.props.children || defaultPlaceholder}
         <input
           style={{
             display: 'none'
@@ -121,5 +119,9 @@ class Dropzone extends React.Component<IProps, IState> {
     );
   }
 };
+
+const defaultPlaceholder = (
+  <span>Drop Images To Begin Training</span>
+);
 
 export default Dropzone;

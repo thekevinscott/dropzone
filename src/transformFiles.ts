@@ -1,9 +1,18 @@
 import * as React from 'react';
 import traverseFileTree from './traverseFileTree';
 
-const transformFiles = async (e: React.DragEvent) => {
-  const d = e.dataTransfer || {};
-  const items = d.items || [];
+type IParsedFile = {
+  file: File;
+  path: string;
+  src: string;
+};
+export type IParsedFiles = {
+  [index: string]: IParsedFile | IParsedFiles;
+};
+
+const transformFiles = async (e: React.DragEvent): Promise<IParsedFiles> => {
+  const d: DataTransfer = e.dataTransfer || {};
+  const items: DataTransferItemList = d.items || [];
   let images: any = [];
   for (let i=0; i<items.length; i++) {
     // webkitGetAsEntry is where the magic happens
@@ -13,7 +22,10 @@ const transformFiles = async (e: React.DragEvent) => {
       images = images.concat(folder);
     }
   }
-  const folders = images.reduce((allImages: any, image: any) => {
+
+  const orig: IParsedFiles = {};
+
+  return images.reduce((allImages: any, image: any) => {
     if (image.path) {
       return {
         ...allImages,
@@ -22,8 +34,7 @@ const transformFiles = async (e: React.DragEvent) => {
     }
 
     return allImages;
-  }, {});
-  return folders;
+  }, orig);
 };
 
 export default transformFiles;
