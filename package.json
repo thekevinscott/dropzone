@@ -1,0 +1,11 @@
+{
+  "name": "dropzone",
+  "version": "0.1.0",
+  "description": "A library for handling dropped folders",
+  "author": "Kevin Scott <kevin@dljsbook.com>",
+  "license": "MIT",
+  "repository": "https://github.com/thkevinscott/dropzone",
+  "main": "src/index.ts",
+  "scripts": {
+  }
+}
