@@ -15,6 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
+    "declaration": true,
     "noUnusedLocals": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -32,7 +33,6 @@
     "__tests__",
     "__mocks__",
     "**/*.test.ts",
-    "**/*.scss.d.ts",
     "src/types.ts",
     "node_modules"
   ]
