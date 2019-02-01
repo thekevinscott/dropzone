@@ -34,7 +34,7 @@ const overStyles = {
 };
 
 class Dropzone extends React.Component<IProps, IState> {
-  private timeout: number;
+  private timeout: any;
   constructor(props: IProps) {
     super(props);
 
