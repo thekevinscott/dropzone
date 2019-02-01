@@ -1,7 +1,6 @@
 import * as React from 'react';
 import classNames from './utils/classNames';
 import transformFiles from './transformFiles';
-import styles from './styles.scss';
 
 interface IProps {
   onDrop?: Function;
@@ -13,6 +12,27 @@ interface IProps {
 interface IState {
   over: boolean;
 }
+
+const containerStyles = {
+  textAlign: 'center',
+  color: 'rgba(0,0,0,0.4)',
+  borderRadius: '5px',
+  height: '100%',
+  width: '100%',
+  display: 'flex',
+  position: 'relative',
+  justifyContent: 'center',
+  alignItems: 'center',
+  background: 'rgba(0,0,0,0)',
+  border: '2px dashed rgba(0,0,0,0.2)',
+  transitionDuration: '0.2s',
+};
+
+const overStyles = {
+  background: 'rgba(155,77,202,0.2)',
+  border: '2px dashed #9b4dca',
+  transitionDuration: '0.1s',
+};
 
 class Dropzone extends React.Component<IProps, IState> {
   private timeout: number;
@@ -75,22 +95,24 @@ class Dropzone extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const className = classNames(styles.container, {
-      [styles.over]: this.state.over,
-    });
     return (
       <div
-        className={className}
+        style={{
+          ...containerStyles,
+          ...(this.state.over ? overStyles : {}),
+          ...this.props.style,
+        }}
         draggable={true}
         // onDragStart={this.handleDrag(true)}
         // onDragEnd={this.handleDrag(false)}
         onDrop={this.handleDrop}
         onDragOver={this.stop}
-        style={this.props.style}
       >
         {this.props.children || (<span>Drop Images To Begin Training</span>)}
         <input
-          className={styles.input}
+          style={{
+            display: 'none'
+          }}
           type="file"
           name="files[]"
           data-multiple-caption="{count} files selected"
